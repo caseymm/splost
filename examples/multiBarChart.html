@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<link href="../src/nv.d3.css" rel="stylesheet" type="text/css">
+
+<style>
+
+body {
+  overflow-y:scroll;
+  /*width:600px;*/
+}
+
+text {
+  font: 12px sans-serif;
+}
+
+p{
+  font-family: 'Helvetica';
+  font-size: 14px;
+  margin-left:18px;
+  line-height: 20px;
+}
+
+#chart1 {
+  height: 500px;
+  margin: 10px;
+  min-width: 100px;
+  min-height: 100px;
+/*
+  Minimum height and width is a good idea to prevent negative SVG dimensions...
+  For example width should be =< margin.left + margin.right + 1,
+  of course 1 pixel for the entire chart would not be very useful, BUT should not have errors
+*/
+}
+
+</style>
+<body>
+  
+  <p>Interact with the legend at the top of the graph to view specific SPLOST award information. Clicking on "By SPLOST" and "Total" will allow you to view county awards by
+  the specific SPLOST or in total. Clicking on "2005 SPLOST" or "2009 SPLOST" will allow you to view the awards.
+  <div id="chart1">
+    <svg></svg>
+  </div>
+
+<script src="../lib/d3.v3.js"></script>
+<script src="../nv.d3.js"></script>
+<script src="../src/tooltip.js"></script>
+<script src="../src/utils.js"></script>
+<script src="../src/models/legend.js"></script>
+<script src="../src/models/axis.js"></script>
+<script src="../src/models/multiBar.js"></script>
+<script src="../src/models/multiBarChart.js"></script>
+<script src="stream_layers.js"></script>
+<script>
+  
+tsplost = [ 
+  {
+    key: "2005 SPLOST",
+    color : "#11BFFE",
+    values: [
+      { 
+        "label" : "Auburn" ,
+        "value" : 169000
+      } , 
+      { 
+        "label" : "Berkley Lake" , 
+        "value" : 1100000
+      } ,
+      { 
+        "label" : "Braselton" ,
+        "value" : 1000000
+      } ,
+      { 
+        "label" : "Buford" ,
+        "value" : 6100000
+      } ,
+      { 
+        "label" : "Dacula" ,
+        "value" : 2500000
+      },
+      { 
+        "label" : "Duluth" ,
+        "value" : 14300000
+      },
+      { 
+        "label" : "Grayson" ,
+        "value" : 1200000
+      },
+      { 
+        "label" : "Lawrenceville" ,
+        "value" : 16000000
+      },
+      { 
+        "label" : "Lilburn" ,
+        "value" : 6300000
+      },
+      { 
+        "label" : "Loganville" ,
+        "value" : 1400000
+      },
+      { 
+        "label" : "Norcross" ,
+        "value" : 5800000
+      },
+      { 
+        "label" : "Resthaven" ,
+        "value" : 59000
+      },
+      { 
+        "label" : "Snellville" ,
+        "value" : 11100000
+      },
+      { 
+        "label" : "Sugar Hill" ,
+        "value" : 9200000
+      },
+      { 
+        "label" : "Suwanee" ,
+        "value" : 8200000
+      }
+    ]
+  },
+  {
+    key: "2009 SPLOST",
+    color : "#C6F218",
+    values: [
+       { 
+        "label" : "Auburn" ,
+        "value" : 158000
+      } , 
+      { 
+        "label" : "Berkley Lake" , 
+        "value" : 1000000
+      } ,
+      { 
+        "label" : "Braselton" ,
+        "value" : 1000000
+      } ,
+      { 
+        "label" : "Buford" ,
+        "value" : 5700000
+      } ,
+      { 
+        "label" : "Dacula" ,
+        "value" : 2400000
+      },
+      { 
+        "label" : "Duluth" ,
+        "value" : 13400000
+      },
+      { 
+        "label" : "Grayson" ,
+        "value" : 1100000
+      },
+      { 
+        "label" : "Lawrenceville" ,
+        "value" : 15000000
+      },
+      { 
+        "label" : "Lilburn" ,
+        "value" : 5900000
+      },
+      { 
+        "label" : "Loganville" ,
+        "value" : 1300000
+      },
+      { 
+        "label" : "Norcross" ,
+        "value" : 5400000
+      },
+      { 
+        "label" : "Resthaven" ,
+        "value" : 55000
+      },
+      { 
+        "label" : "Snellville" ,
+        "value" : 1040000
+      },
+      { 
+        "label" : "Sugar Hill" ,
+        "value" : 8600000
+      },
+      { 
+        "label" : "Suwanee" ,
+        "value" : 7700000
+      }
+    ]
+  }
+];
+var commasFormatter = d3.format(",.0f");
+
+nv.addGraph(function() {
+      var chart = nv.models.multiBarChart()
+      chart.x(function(d) { return d.label })
+      chart.y(function(d) { return d.value })
+  
+      chart.xAxis
+          .rotateLabels(-45);
+  
+      chart.yAxis
+          .tickFormat(d3.format(',.f'))
+          .tickFormat(function(d) { return "$" + commasFormatter(d); })
+  
+     d3.select('#chart1 svg')
+         .datum(tsplost)
+       .transition().duration(500)
+       .call(chart);
+ 
+     nv.utils.windowResize(chart.update);
+ 
+     return chart;
+ });
+
+
+
+</script>
