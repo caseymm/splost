@@ -2,7 +2,9 @@
 <meta charset="utf-8">
 
 <link href="../src/nv.d3.css" rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="fundMap/css/leaflet.css" />
+    <script src="fundMap/js/leaflet.js"></script>
+    <script src="fundMap/js/leaflet-src.js"></script>
 <style>
 
 body {
@@ -35,6 +37,13 @@ p{
 
 </style>
 <body>
+  
+  <div class="legend">
+    <div class="pic" id="city"></div><div class="legText">City Allocation</div>
+    <div class="pic" id="project"></div><span class="legText">SPLOST Projects</span>
+</div>
+<div id="map"></div>
+<script src="fundMap/js/myMap.js"></script>
   
   <p>Interact with the legend at the top of the graph to view specific SPLOST award information. Clicking on "By SPLOST" and "Total" will allow you to view county awards by
   the specific SPLOST or in total. Clicking on "2005 SPLOST" or "2009 SPLOST" will allow you to view the awards.
