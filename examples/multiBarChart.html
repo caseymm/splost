@@ -10,7 +10,9 @@
      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
  <![endif]-->
 <style>
-
+.container{
+  margin-left:-9px;
+}
 body {
   overflow-y:scroll;
   /*width:600px;*/
@@ -41,21 +43,22 @@ p{
 
 </style>
 <body>
-  <h1>SPLOST Fund Allocation by City and Project</h1>
+<div class="container">  
 
-  <div class="legend">
-    <div class="pic" id="city"></div><div class="legText">City Allocation</div>
-    <div class="pic" id="project"></div><span class="legText">SPLOST Projects</span>
-</div>
-<div id="map"></div>
-<script src="fundMap/js/myMap.js"></script>
   <h1>SPLOST Fund Allocation by City and Year</h1>
   <p>Interact with the legend at the top of the graph to view specific SPLOST award information. Clicking on "By SPLOST" and "Total" will allow you to view county awards by
-  the specific SPLOST or in total. Clicking on "2005 SPLOST" or "2009 SPLOST" will allow you to view the awards.
+  the specific SPLOST or in total. Clicking on "2005 SPLOST" or "2009 SPLOST" will allow you to view the awards individually.</p>
   <div id="chart1">
     <svg></svg>
   </div>
 
+  <!--[if lte IE 8]>
+	<div style="margin:15px 0px 0px 0px;font-family:'Helvetica'; color:#373737;font-size:14px;">
+	<p>Please upgrade your browser to the latest version to view this graph interactively.</p>
+	</div>
+	<img src="images/splostGraph.png">
+  <![endif]-->
+  
 <script src="../lib/d3.v3.js"></script>
 <script src="../nv.d3.js"></script>
 <script src="../src/tooltip.js"></script>
@@ -228,3 +231,15 @@ nv.addGraph(function() {
 
 
 </script>
+<h1>SPLOST Fund Allocation by City and Project</h1>
+<p>Click on the map icons to view SPLOST allocations by city and project. Interacting with the legend on the right of the graph will allow you to filter which cities and projects
+appear on the map.</p>
+  <div class="legend">
+    <div class="pic" id="city"></div><div class="legText">City Allocation</div>
+    <div class="pic" id="project"></div><span class="legText">SPLOST Projects</span>
+</div>
+<div id="map"></div>
+<script src="fundMap/js/myMap.js"></script>
+</div>
+</body>
+</html>
